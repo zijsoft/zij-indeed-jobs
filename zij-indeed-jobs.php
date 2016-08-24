@@ -4,7 +4,7 @@ Plugin Name: Zij Indeed Jobs
 Plugin URI: http://zijsoft.com/wordpress/zijindeedjobs
 Description: Zijsoft provide the indeed jobs integeration into your wordpress installation easily
 Author: Habib Ahmed
-Version: 1.0
+Version: 1.1
 Author URI: http://zijsoft.com/aboutus
 */
 
@@ -147,24 +147,11 @@ class ZijIndeedJobs extends WP_Widget {
 
 } // class Foo_Widget
 
-add_action('wp_head','zijindeedjobs_css');
 
-function zijindeedjobs_css() {
-
-	$output = "<style>
-				div.zijindeed_job_wrapper{float:left;width:100%;background:#fefefe;border-radius:4px;margin-bottom:10px;padding:5px 10px;}
-				div.zijindeed_job_wrapper div.zijindeed_job_title{float:left;width:100%;padding:5px 0px;border-bottom:1px solid #a7a7a7;color:#a7a7a7;}
-				div.zijindeed_job_wrapper div.zijindeed_job_title a{color:#a7a7a7;text-decoration:none;}
-				div.zijindeed_job_wrapper div.zijindeed_job_title a:hover{color:#646464;}
-				div.zijindeed_job_wrapper div.zijindeed_field_wrapper{float:left;width:100%;margin-top:5px;}
-				div.zijindeed_job_wrapper div.zijindeed_field_wrapper div.zijindeed_title{width:35%;float:left;color:#646464;}
-				div.zijindeed_job_wrapper div.zijindeed_field_wrapper div.zijindeed_value{width:65%;float:left;color:#a8a8a8;}
-				div.zijindeed_job_wrapper div.zijindeed_field_wrapper div.zijindeed_snippet{width:100%;float:left;color:#a8a8a8;}
-			</style>";
-
-	echo $output;
-
+function zijindeed_stylesheet() {
+    wp_enqueue_style( 'style-name', plugins_url( 'includes/style.css', __FILE__ ) );
 }
+add_action( 'wp_enqueue_scripts', 'zijindeed_stylesheet' );
 
 // register Zij indeed jobs widget
 function register_zijindeedjobswidget() {
