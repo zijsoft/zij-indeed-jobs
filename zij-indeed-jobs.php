@@ -4,7 +4,7 @@ Plugin Name: Zij Indeed Jobs
 Plugin URI: http://zijsoft.com/wordpress/zijindeedjobs
 Description: Zijsoft provide the indeed jobs integeration into your wordpress installation easily
 Author: Habib Ahmed
-Version: 1.1
+Version: 1.2
 Author URI: http://zijsoft.com/aboutus
 */
 
@@ -55,27 +55,15 @@ class ZijIndeedJobs extends WP_Widget {
         if(isset($indeedjobs)){
         	foreach($indeedjobs['results'] AS $job){
         		$html = '<div class="zijindeed_job_wrapper">
-        					<div class="zijindeed_job_title"><a href="'.$job['url'].'" target="_blank" >'.$job['jobtitle'].'</a></div>
-        					<div class="zijindeed_field_wrapper">
-        						<div class="zijindeed_title">'.__('Company','zij-indeed-jobs').'</div>
-        						<div class="zijindeed_value">'.$job['company'].'</div>
-        					</div>
-        					<div class="zijindeed_field_wrapper">
-        						<div class="zijindeed_title">'.__('Source','zij-indeed-jobs').'</div>
-        						<div class="zijindeed_value">'.$job['source'].'</div>
-        					</div>
-        					<div class="zijindeed_field_wrapper">
-        						<div class="zijindeed_title">'.__('Posted','zij-indeed-jobs').'</div>
-        						<div class="zijindeed_value">'.$job['formattedRelativeTime'].'</div>
-        					</div>
-        					<div class="zijindeed_field_wrapper">
-        						<div class="zijindeed_title">'.__('Location','zij-indeed-jobs').'</div>
-        						<div class="zijindeed_value">'.$job['formattedLocationFull'].'</div>
-        					</div>
-        					<div class="zijindeed_field_wrapper">
-        						<div class="zijindeed_title">'.__('Snippet','zij-indeed-jobs').'</div>
+        					<div class="zijindeed_job_upper">
+        						<a class="zijindeed_title" href="'.$job['url'].'" target="_blank" >'.$job['jobtitle'].'</a>
+        						<span class="zijindeed_job_comp_loc">'.$job['company'].' - '.$job['formattedLocationFull'].'</span>
         						<div class="zijindeed_snippet">'.$job['snippet'].'</div>
-        					</div>
+    						</div>
+    						<div class="zijindeed_job_lower">
+    							<span class="fa fa-calendar"></span>'.date('l, d M Y', strtotime($job['date'])).'
+    							<a class="zijindeed_job_applynow" href="'.$job['url'].'" target="_blank" >'.__('Apply','zijindeedjobs').'</a>
+    						</div>
         				</div>';
 				echo $html;
         	}
@@ -149,7 +137,8 @@ class ZijIndeedJobs extends WP_Widget {
 
 
 function zijindeed_stylesheet() {
-    wp_enqueue_style( 'style-name', plugins_url( 'includes/style.css', __FILE__ ) );
+    wp_enqueue_style( 'zijindeed-style', plugins_url( 'includes/style.css', __FILE__ ) );
+    wp_enqueue_style('zijindeed-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'); 
 }
 add_action( 'wp_enqueue_scripts', 'zijindeed_stylesheet' );
 
